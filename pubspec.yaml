@@ -41,7 +41,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - image/
+    - image/logo1.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

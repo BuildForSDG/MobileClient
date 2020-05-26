@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:registrationapp/Home.dart';
+//import 'package:registrationapp/Home.dart';
 
+import 'Fragments.dart';
 import 'Sign_Up.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 

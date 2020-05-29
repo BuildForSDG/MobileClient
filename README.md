@@ -1,6 +1,11 @@
-# registrationapp
+# Zero Hunger mobile client
 
 A new Flutter application.
+
+
+This is a mobile application client build in flutter which consumes REST API endpoints from the Zero Hunger Web application. this mobile app helps the farmer who is the client updload and update all his/her farming produce to the web application for buyers to see and make purchase orde if at all they are interested with their products. futher more the farmer is able to get more information about farming practices and financial aids to help them in their farming activities in order for them to increase their farm productivity.
+
+
 
 ## Getting Started
 

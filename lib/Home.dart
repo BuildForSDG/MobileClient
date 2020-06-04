@@ -100,7 +100,7 @@ class HomePageState extends State<HomePage> {
 
                   ),
                   image: new DecorationImage(
-                      image: new AssetImage("assets/icon2.jpg"),
+                      image: new AssetImage("assets/logo1.jpg"),
                       fit: BoxFit.cover
                   )
               ),

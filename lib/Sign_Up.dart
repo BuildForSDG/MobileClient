@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:registrationapp/Sign_in.dart';
+import 'Sign_in.dart';
+import 'package:toast/toast.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -17,11 +19,6 @@ class _SignUpState extends State<SignUp> {
 
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('image/icon4.jpg'),
-            ),
-          ),
           child: Form(
             //implement key
             key: _formKey,
@@ -100,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                         Icons.remove_red_eye,
                         size: 15.0,
                       ),
-                      labelText: 'Password ',
+                      labelText: 'Password ,should atleast be 6 characters',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green),
                       ),
@@ -136,9 +133,19 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
-                    onPressed: signUp,
+                    onPressed: (){
+                      signUp();
+                      Toast.show("Registration Successful", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.TOP,backgroundColor: Colors.green);
+                    },
                     child: Text('Sign Up'),
                   ),
+                ),
+                FlatButton(
+                  onPressed:(){  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => LoginPage()));},
+
+                  child: Text('Have an Account? Login', style: TextStyle(color:Colors.green),),
+
                 ),
               ],
             ),

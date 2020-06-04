@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:registrationapp/Home.dart';
+import 'Navigation.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
-import 'Fragments.dart';
 import 'Sign_Up.dart';
+import 'package:toast/toast.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,21 +13,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _email, _password;
+
+  ProgressDialog progressDialog;
+  String _email, _password,_user;
   //create a global key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+
+     progressDialog = ProgressDialog(context,type: ProgressDialogType.Normal);
+     progressDialog.style(
+         message: 'Login...',
+         borderRadius: 10.0,
+         backgroundColor: Colors.white,
+         progressWidget: CircularProgressIndicator(),
+         elevation: 10.0,
+         insetAnimCurve: Curves.easeInOut,
+         progress: 0.0,
+         maxProgress: 100.0,
+         progressTextStyle: TextStyle(
+             color: Colors.green, fontSize: 13.0, fontWeight: FontWeight.w400),
+         messageTextStyle: TextStyle(
+             color: Colors.green, fontSize: 19.0, fontWeight: FontWeight.w600)
+     );
+
+
     return Scaffold(
 
       body: SingleChildScrollView(
 
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('image/icon4.jpg'),
-            ),
-          ),
           child: Form(
             //implement key
             key: _formKey,
@@ -42,7 +58,30 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(
                   height: 20.0,
-                  child: Text('User login'),
+                  child: Text('Login page'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    // ignore: missing_return
+                    validator: (input) {
+                      if (input.isEmpty) {
+                        return 'PLease enter your Username ';
+                      }
+                    },
+                    onSaved: (input) => _user = input,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person,
+                        size: 15.0,
+                      ),
+                      labelText: 'Username ',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -73,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                     // ignore: missing_return
                     validator: (input) {
                       if (input.length < 6) {
-                        return 'please enter the coreect password';
+                        return 'please enter the correct password';
                       }
                     },
                     onSaved: (input) => _password = input,
@@ -92,12 +131,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 RaisedButton(
-                  onPressed: signIn,
+                  onPressed: (){
+                    signIn();
+                    progressDialog.show();
+                    Toast.show("Login Successful", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.TOP,backgroundColor: Colors.green);
+                  },
                   child: Text('Sign in'),
                 ),
                 FlatButton(
-                  onPressed: signIn,
-                  child: Text('Don\'t have an Account? Login', style: TextStyle(color:Colors.green),),
+                  onPressed:(){  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => SignUp()));},
+
+                  child: Text('Don\'t have an Account? Register', style: TextStyle(color:Colors.green),),
+
                 ),
               ],
             ),
@@ -117,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(email: _email, password: _password);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Home()));
+
       } catch (e) {
         print(e);
       }

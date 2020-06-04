@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:registrationapp/Sign_Up.dart';
+import 'package:registrationapp/Splash.dart';
+import 'Splash.dart';
+import 'Navigation.dart';
 
-import 'Home.dart';
+
 
 
 void main() => runApp(MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: new HomePage(),
+      home: SplashScreen(),
 
       );
   }
